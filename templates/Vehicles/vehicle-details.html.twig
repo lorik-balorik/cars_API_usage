@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if vehicle is not null %}
+
+        <div class="media pt-3 border-bottom border-gray">
+            <img src="{{ vehicle.images.0.url ?? asset('images/non-defined-car.png') }}" alt="" class="mr-2 rounded" style="max-height: 150px; max-width: 150px">
+
+            <span class="text-lg-center">{{ vehicle.brand }}
+                {% if vehicle.model is not null %}, {{ vehicle.model }} {% endif %}
+            </span>
+
+            <span class="media-body pb-3 mb-0 small lh-125">
+                <span class="d-block">Production Year <small>·</small> <strong>{{ vehicle.productionYear ?? '-' }}</strong> </span>
+                <span class="d-block">Mileage <small>·</small> <strong>{{ vehicle.mileage ?? '-' }}</strong> </span>
+                <span class="d-block">Fuel Type <small>·</small> <strong>{{ vehicle.fuelDisplayName ?? '-' }}</strong> </span>
+            </span>
+        </div>
+    {% else %}
+        Vehicle with provided ID doesn't exist
+    {% endif %}
+{% endblock %}

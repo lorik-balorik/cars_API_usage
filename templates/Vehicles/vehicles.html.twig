@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block viewName %}
+    Vehicles
+{% endblock %}
+
+{% block body %}
+    {{ include('Vehicles/vehicles-form.html.twig') }}
+
+    {% if vehicles is null %}
+        <h4>Couldn't find any vehicles</h4>
+    {% else %}
+        {% for vehicle in vehicles %}
+            <a href="{{ path('vehicle_details', { 'vehicleId': vehicle.urlId }) }}">
+                <div class="media pt-3 border-bottom border-gray">
+                    <img src="{{ vehicle.images.0.url ?? asset('images/non-defined-car.png') }}" alt="" class="mr-2 rounded" style="max-height: 150px; max-width: 150px">
+                    <span class="text-lg-center">{{ vehicle.brand }}
+                        {% if vehicle.model is not null %}, {{ vehicle.model }} {% endif %}
+                    </span>
+
+                    <span class="media-body pb-3 mb-0 small lh-125">
+                        <span class="d-block">Production Year <small>·</small> <strong>{{ vehicle.productionYear ?? '-' }}</strong> </span>
+                        <span class="d-block">Mileage <small>·</small> <strong>{{ vehicle.mileage ?? '-' }}</strong> </span>
+                        <span class="d-block">Fuel Type <small>·</small> <strong>{{ vehicle.fuelDisplayName ?? '-' }}</strong> </span>
+                    </span>
+                </div>
+            </a>
+        {% endfor %}
+    {% endif %}
+{% endblock %}
+
+
+
+
+
